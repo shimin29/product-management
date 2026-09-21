@@ -3,9 +3,20 @@ const app = express();
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoute");
 const productRoutes = require("./routes/productRoute");
+const cors = require("cors");
+
+const corsHandler = cors({
+    origin: "*",
+    methods: "GET,POST,PUT,DELETE",
+    allowedHeaders: ["Content-Type", "Authorization"],
+    optionsSuccessStatus: 200,
+    preflightContinue: true,
+});
+
+app.use(corsHandler);
 
 mongoose
-    .connect("mongodb://localhost:27017/jwt_with_products")
+    .connect("mongodb://localhost:27017/b18-jwt-products")
     .then(() => {
         console.log("MongoDB Connected");
     })
