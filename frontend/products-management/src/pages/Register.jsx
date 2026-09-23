@@ -1,31 +1,28 @@
 import { useState } from "react";
 import "./Register.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router";
+import { useNavigate } from "react-router";
 
 function Register() {
-    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        // 💡 Add your login / authentication logic here
+        console.log("Form submitted:", { email, password });
         try {
             const response = await axios.post("http://localhost:3000/users/register", {
-                name,
                 email,
                 password,
             });
-
-            console.log("Register successful:", response.data);
-            alert("Registration Successful!");
-            navigate("/");
+            console.log("Register successful: ", response.data);
+            alert("Register Successful!");
         } catch (error) {
-            console.log("Register Error:", error);
-            alert("Registration Failed!");
+            console.log("Register Error: ", error);
         }
     };
 
@@ -33,11 +30,6 @@ function Register() {
         <div className="register-wrapper">
             <form onSubmit={handleSubmit} className="register-card">
                 <h2>Create Account</h2>
-
-                <div className="form-group">
-                    <label htmlFor="name">Name</label>
-                    <input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter your name" required />
-                </div>
 
                 <div className="form-group">
                     <label htmlFor="email">Email Address</label>
